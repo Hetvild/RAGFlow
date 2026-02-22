@@ -1,11 +1,18 @@
 # Создаем базовую конфигурацию через pydantic-settings
 from pathlib import Path
+from urllib.parse import urljoin
 
+from pydantic import BaseModel, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 # Определяем путь к корню проекта (на 2 уровня выше, чем этот файл)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+
+class TelegramConfig(BaseModel):
+    TELEGRAM_TOKEN: str
+    WEBHOOK_PATH: str
 
 
 class Settings(BaseSettings):
@@ -27,6 +34,14 @@ class Settings(BaseSettings):
     EMBEDDINGS_MODEL: str = "EmbeddingsGigaR"
     QDRANT_COLLECTION_NAME: str = "Rag"
     QDRANT_URL: str = "http://localhost:6333"
+
+    BASE_URL: str = "https://api.telegram.org/bot"
+
+    tg: TelegramConfig = None
+
+    @computed_field
+    def bot_webhook_url(self) -> str:
+        return urljoin(str(self.BASE_URL), str(self.tg.WEBHOOK_PATH))
 
 
 settings = Settings()
