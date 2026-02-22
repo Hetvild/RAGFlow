@@ -29,13 +29,17 @@ class Settings(BaseSettings):
 
     # Подключаем базовую конфигурацию
     LOG_LEVEL: str = "INFO"
+    BASE_URL: str = "https://api.telegram.org/bot"
+
+    LLM_API_KEY: str
+    LLM_BASE_URL: str
+    LLM_MODEL_NAME: str
 
     GIGACHAT_API_KEY: str | None = None
     EMBEDDINGS_MODEL: str = "EmbeddingsGigaR"
+
     QDRANT_COLLECTION_NAME: str = "Rag"
     QDRANT_URL: str = "http://localhost:6333"
-
-    BASE_URL: str = "https://api.telegram.org/bot"
 
     tg: TelegramConfig = None
 
