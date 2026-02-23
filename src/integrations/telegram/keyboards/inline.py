@@ -38,3 +38,21 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
         resize_keyboard=True,  # Адаптивный размер
     )
     return keyboard
+
+
+def get_loadfile_menu_keyboard() -> InlineKeyboardMarkup:
+    builder = InlineKeyboardBuilder()
+
+    # Кнопки управления сессией
+    builder.button(
+        text="🔄 Сменить базу", callback_data=MenuCallback(action="main").pack()
+    )
+    builder.button(
+        text="🧹 Очистить контекст",
+        callback_data=MenuCallback(action="clear_context").pack(),
+    )
+
+    # Сетка: 1 кнопка в ряд (широкие кнопки)
+    builder.adjust(1)
+
+    return builder.as_markup(resize_keyboard=True)

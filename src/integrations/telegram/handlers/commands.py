@@ -3,7 +3,11 @@ from aiogram.enums import ParseMode
 from aiogram.filters import Command
 
 from core.logging import logger
-from integrations.telegram.keyboards.inline import MenuCallback, get_main_menu_keyboard
+from integrations.telegram.keyboards.inline import (
+    MenuCallback,
+    get_loadfile_menu_keyboard,
+    get_main_menu_keyboard,
+)
 from integrations.telegram.messages.text import START_MESSAGE
 
 
@@ -54,7 +58,7 @@ async def process_menu_callback(
     elif action == "my_bases":
         await callback.message.edit_text(
             text="📂 <b>Мои базы</b>\n\nЗдесь вы можете создать или выбрать свою базу.",
-            reply_markup=get_main_menu_keyboard(),
+            reply_markup=get_loadfile_menu_keyboard(),
             parse_mode=ParseMode.HTML,
         )
     elif action == "limits":
