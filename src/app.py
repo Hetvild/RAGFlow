@@ -7,6 +7,7 @@ from core.config import settings
 from core.logging import logger
 from integrations.telegram.bot import bot, dp
 from integrations.telegram.handlers.commands import command_router
+from integrations.telegram.handlers.messages import messages_router
 
 
 @asynccontextmanager
@@ -39,6 +40,7 @@ app = FastAPI(
 
 
 dp.include_router(command_router)
+dp.include_router(messages_router)
 
 
 @app.get("/health")
