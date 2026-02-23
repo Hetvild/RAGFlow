@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     LLM_API_KEY: str
     LLM_BASE_URL: str
     LLM_MODEL_NAME: str
+    LLM_TEMPERATURE: float = 0.7
 
     GIGACHAT_API_KEY: str | None = None
     EMBEDDINGS_MODEL: str = "EmbeddingsGigaR"
