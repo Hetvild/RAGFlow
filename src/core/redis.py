@@ -16,7 +16,7 @@ class RedisManager:
                 host=settings.REDIS_HOST,
                 port=settings.REDIS_PORT,
                 db=settings.REDIS_DB,
-                password=settings.REDIS_PASSWORD,
+                # password=settings.REDIS_PASSWORD,
                 decode_responses=True,
                 max_connections=settings.REDIS_MAX_CONNECTIONS,
                 socket_timeout=settings.REDIS_SOCKET_TIMEOUT,
