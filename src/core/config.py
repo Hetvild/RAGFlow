@@ -31,6 +31,16 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     BASE_URL: str = "https://api.telegram.org/bot"
 
+    # Redis Settings
+    REDIS_HOST: str = "localhost"
+    REDIS_PORT: int = 6379
+    REDIS_DB: int = 0
+    REDIS_PASSWORD: str | None = None
+    REDIS_PREFIX: str = "my_saas_project"
+    REDIS_MAX_CONNECTIONS: int = 50
+    REDIS_SOCKET_TIMEOUT: float = 5.0
+    REDIS_SOCKET_CONNECT_TIMEOUT: float = 5.0
+
     LLM_API_KEY: str
     LLM_BASE_URL: str
     LLM_MODEL_NAME: str
