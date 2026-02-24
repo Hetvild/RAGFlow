@@ -2,7 +2,7 @@
 from pathlib import Path
 from urllib.parse import urljoin
 
-from pydantic import BaseModel, computed_field
+from pydantic import BaseModel, PostgresDsn, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,6 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 class TelegramConfig(BaseModel):
     TELEGRAM_TOKEN: str
     WEBHOOK_PATH: str
+
+
+class DbConfig(BaseModel):
+    DATABASE_URL: PostgresDsn
 
 
 class Settings(BaseSettings):
@@ -52,6 +56,7 @@ class Settings(BaseSettings):
     QDRANT_COLLECTION_NAME: str = "Rag"
     QDRANT_URL: str = "http://localhost:6333"
 
+    db: DbConfig
     tg: TelegramConfig = None
 
     @computed_field
