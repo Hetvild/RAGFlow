@@ -55,6 +55,7 @@ class Settings(BaseSettings):
 
     QDRANT_COLLECTION_NAME: str = "Rag"
     QDRANT_URL: str = "http://localhost:6333"
+    QDRANT_TIMEOUT: float = 5.0
 
     db: DbConfig
     tg: TelegramConfig = None
