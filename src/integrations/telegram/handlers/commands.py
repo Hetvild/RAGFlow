@@ -3,6 +3,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import Command
 
 from core.logging import logger
+from db.repositories.user_repo import UserRepository
 from integrations.telegram.keyboards.inline import (
     MenuCallback,
     get_loadfile_menu_keyboard,
@@ -15,7 +16,7 @@ command_router = Router()
 
 
 @command_router.message(Command("start"))
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, user_repo: UserRepository):
     user_id = message.from_user.id
     user_name = message.from_user.username
     first_name = message.from_user.first_name
@@ -31,6 +32,13 @@ async def cmd_start(message: types.Message):
         full_name,
         message_text,
     )
+
+    # 1. Работа с юзером
+    user = await user_repo.get_or_create_user(
+        telegram_id=message.from_user.id, username=message.from_user.username
+    )
+
+    logger.debug("Данные из Postgres {}", user.telegram_id)
 
     await message.answer(
         text=START_MESSAGE,
