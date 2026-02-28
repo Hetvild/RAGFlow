@@ -58,7 +58,12 @@ def get_loadfile_menu_keyboard() -> InlineKeyboardMarkup:
         callback_data=MenuCallback(action="clear_context").pack(),
     )
 
+    builder.button(
+        text="Вернуться в главное меню",
+        callback_data=MenuCallback(action="clear_context").pack(),
+    )
+
     # Сетка: 1 кнопка в ряд (широкие кнопки)
-    builder.adjust(1)
+    builder.adjust(2)
 
     return builder.as_markup(resize_keyboard=True)
