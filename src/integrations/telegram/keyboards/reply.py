@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup
+from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 
@@ -39,3 +39,26 @@ def get_loadfile_menu_keyboard() -> ReplyKeyboardMarkup:
     builder.adjust(2)
 
     return builder.as_markup(resize_keyboard=True)
+
+
+def get_dialog_keyboard() -> ReplyKeyboardMarkup:
+    builder = ReplyKeyboardBuilder()
+
+    builder.button(text="🛑 Завершить диалог")
+
+    builder.adjust(1)
+
+    return builder.as_markup(
+        resize_keyboard=True,
+        one_time_keyboard=False,
+        is_persistent=True,
+        input_field_placeholder="Введите ваш вопрос...",
+    )
+
+
+def get_main_reply_keyboard() -> ReplyKeyboardRemove:
+    """
+    Удаляем клавиатуру
+    :return:
+    """
+    return ReplyKeyboardRemove()
