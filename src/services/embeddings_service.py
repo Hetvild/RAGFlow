@@ -57,10 +57,11 @@ class EmbeddingsService:
 
         try:
             # 1. Генерация эмбеддинга для текстового запроса
-            response: EmbeddingsResponse = self.gigachat.embeddings(
+            response = await self.gigachat.aembeddings(
                 texts=[query],
                 model=self.model,
             )
+
             query_vector = response.data[0].embedding
 
             # 2. Поиск через репозиторий
