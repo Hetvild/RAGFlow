@@ -34,7 +34,7 @@ async def lifespan(_: FastAPI):
         state_ttl=timedelta(minutes=30),  # Настоящее время жизни состояний
         data_ttl=timedelta(minutes=30),  # Настоящее время жизни данных
         # ⬇ Префиксы задаются отдельно, если нужно (опционально)
-        key_builder=None,  # Можно использовать DefaultKeyBuilder для кастомных префиксов
+        key_builder=None,
     )
     # Создаем новый диспетчер с RedisStorage
     dp = Dispatcher(storage=storage)

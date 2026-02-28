@@ -9,13 +9,12 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from core.config import settings
+from db.models import Base
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, "src"))
-
-from db.models import Base, User
 
 
 # this is the Alembic Config object, which provides

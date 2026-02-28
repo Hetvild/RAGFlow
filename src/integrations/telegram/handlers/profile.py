@@ -18,7 +18,11 @@ async def process_profile_callback(
 
     with suppress(TelegramBadRequest):
         await callback.message.edit_text(
-            text=f"👤 <b>Профиль</b>\n\nID: {callback.from_user.id}\nИмя: {callback.from_user.username}",
+            text=(
+                f"👤 <b>Профиль</b>\n\n"
+                f"ID: {callback.from_user.id}\n"
+                f"Имя: {callback.from_user.username}"
+            ),
             reply_markup=get_main_menu_keyboard(),
             parse_mode=ParseMode.HTML,
         )

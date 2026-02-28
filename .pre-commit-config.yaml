@@ -1,0 +1,36 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Используем версию >=0.14.14, как в pyproject.toml
+    rev: v0.14.14
+    hooks:
+      # Запускаем ruff как линтер с автопоправками
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix ]
+        types: [ python ]
+
+      # Запускаем ruff как форматтер (вместо black + isort)
+      - id: ruff-format
+        types: [ python ]
+
+  #  - repo: https://github.com/pre-commit/mirrors-mypy
+  #    rev: v1.11.0
+  #    hooks:
+  #      - id: mypy
+  #        exclude: "^tests/"
+  #        additional_dependencies: [
+  #          "types-requests",
+  #          "types-pyyaml",
+  #          "sqlalchemy-stubs",
+  #        ]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.6
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        exclude: '.*\\.csv$'

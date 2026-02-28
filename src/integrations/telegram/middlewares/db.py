@@ -17,7 +17,6 @@ class DatabaseMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-
         # Получаем клиента Qdrant
         qdrant_client = qdrant_manager.get_client()
 

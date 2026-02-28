@@ -12,11 +12,11 @@ from utils.text_splitter import generate_chunk_id
 
 class EmbeddingsService:
     def __init__(self, vector_repo: VectorRepository):
-        self.vector_repo = vector_repo  # <--- Теперь мы принимаем репозиторий извне
+        self.vector_repo = vector_repo
         self.api_key = settings.GIGACHAT_API_KEY
         self.model = settings.EMBEDDINGS_MODEL
 
-        # Инициализируем GigaChat клиент (его можно оставить здесь, так как он специфичен для этого сервиса)
+        # Инициализируем GigaChat клиент
         self.gigachat = GigaChat(
             credentials=self.api_key,
             model=self.model,

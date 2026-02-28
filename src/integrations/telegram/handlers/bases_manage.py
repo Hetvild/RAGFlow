@@ -18,7 +18,6 @@ bases_router = Router()
 async def process_demo_callback(
     callback: types.CallbackQuery, callback_data: MenuCallback
 ):
-
     await callback.answer()
 
     with suppress(TelegramBadRequest):
@@ -33,7 +32,6 @@ async def process_demo_callback(
 async def process_my_bases_callback(
     callback: types.CallbackQuery, callback_data: MenuCallback
 ):
-
     await callback.answer()
 
     with suppress(TelegramBadRequest):

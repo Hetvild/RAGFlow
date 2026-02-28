@@ -19,7 +19,6 @@ class LLMService:
         temperature=settings.LLM_TEMPERATURE,
         max_tokens: Optional[int] = None,
     ):
-
         self._llm = ChatOpenAI(
             model=model,
             api_key=api_key,

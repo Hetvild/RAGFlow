@@ -15,15 +15,13 @@ async def cmd_start(message: types.Message):
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
     full_name = message.from_user.full_name
-    message_text = message.text
     logger.debug(
-        "User_id: {}, Username: {}, Firstname: {}, Lastname: {}, Fullname: {}, Textmessage: {}",
+        "User_id: {}, Username: {}, Firstname: {}, Lastname: {}, Fullname: {}",
         user_id,
         user_name,
         first_name,
         last_name,
         full_name,
-        message_text,
     )
 
     await message.answer(
