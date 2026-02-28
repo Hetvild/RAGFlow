@@ -6,10 +6,10 @@ def get_main_menu_keyboard() -> ReplyKeyboardMarkup:
     """Основное меню бота"""
     builder = ReplyKeyboardBuilder()
 
-    builder.button(text="📚 Выбрать Демо-базу ")
+    builder.button(text="📚 Выбрать Демо-базу")
     builder.button(text="📂 Мои базы")
     builder.button(text="📊 Лимиты и Тариф")
-    builder.button(text="⚙️ Настройки ")
+    builder.button(text="⚙️ Настройки")
 
     builder.adjust(2)
 
