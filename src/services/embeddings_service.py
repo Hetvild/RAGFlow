@@ -18,7 +18,9 @@ class EmbeddingsService:
 
         # Инициализируем GigaChat клиент (его можно оставить здесь, так как он специфичен для этого сервиса)
         self.gigachat = GigaChat(
-            credentials=self.api_key, model=self.model, verify_ssl_certs=False
+            credentials=self.api_key,
+            model=self.model,
+            verify_ssl_certs=False,
         )
 
     async def index_documents(self, documents: List[str]) -> int:
@@ -52,11 +54,18 @@ class EmbeddingsService:
         """
         Поиск похожих документов по запросу.
         """
-        # 1. Генерация эмбеддинга для текстового запроса
-        response: EmbeddingsResponse = await self.gigachat.embeddings([query])
-        query_vector = response.data[0].embedding
 
-        # 2. Поиск через репозиторий
-        return await self.vector_repo.search_similar(
-            query_vector=query_vector, limit=limit, score_threshold=score_threshold
-        )
+        try:
+            # 1. Генерация эмбеддинга для текстового запроса
+            response: EmbeddingsResponse = self.gigachat.embeddings(
+                texts=[query],
+                model=self.model,
+            )
+            query_vector = response.data[0].embedding
+
+            # 2. Поиск через репозиторий
+            return await self.vector_repo.search_similar(
+                query_vector=query_vector, limit=limit, score_threshold=score_threshold
+            )
+        except Exception as e:
+            logger.debug("Произошла ошибка: {}", e)
