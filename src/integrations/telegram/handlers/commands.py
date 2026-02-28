@@ -4,11 +4,7 @@ from aiogram.filters import Command
 
 from core.logging import logger
 from db.repositories.user_repo import UserRepository
-from integrations.telegram.keyboards.inline import (
-    MenuCallback,
-    get_loadfile_menu_keyboard,
-    get_main_menu_keyboard,
-)
+from integrations.telegram.keyboards.inline import get_main_menu_keyboard
 from integrations.telegram.messages.text import START_MESSAGE
 
 
@@ -33,7 +29,6 @@ async def cmd_start(message: types.Message, user_repo: UserRepository):
         message_text,
     )
 
-    # 1. Работа с юзером
     user = await user_repo.get_or_create_user(
         telegram_id=message.from_user.id, username=message.from_user.username
     )
@@ -45,39 +40,3 @@ async def cmd_start(message: types.Message, user_repo: UserRepository):
         parse_mode=ParseMode.HTML,
         reply_markup=get_main_menu_keyboard(),
     )
-
-
-# 2. Обработчик нажатий на кнопки меню
-@command_router.callback_query(MenuCallback.filter())
-async def process_menu_callback(
-    callback: types.CallbackQuery, callback_data: MenuCallback
-):
-
-    # Отвечаем на callback (обязательно, чтобы убрать часы загрузки у пользователя)
-    await callback.answer()
-    action = callback_data.action
-
-    if action == "demo":
-        await callback.message.edit_text(
-            text="📚 <b>Демо базы</b>\n\nВыберите базу для диалога:",
-            reply_markup=get_main_menu_keyboard(),  # Здесь можно подключить другую клавиатуру со списком баз
-            parse_mode=ParseMode.HTML,
-        )
-    elif action == "my_bases":
-        await callback.message.edit_text(
-            text="📂 <b>Мои базы</b>\n\nЗдесь вы можете создать или выбрать свою базу.",
-            reply_markup=get_loadfile_menu_keyboard(),
-            parse_mode=ParseMode.HTML,
-        )
-    elif action == "limits":
-        await callback.message.edit_text(
-            text="📊 <b>Ваши лимиты</b>\n\nОстаток токенов: 1000",
-            reply_markup=get_main_menu_keyboard(),
-            parse_mode=ParseMode.HTML,
-        )
-    elif action == "profile":
-        await callback.message.edit_text(
-            text="👤 <b>Профиль</b>\n\nID: " + str(callback.from_user.id),
-            reply_markup=get_main_menu_keyboard(),
-            parse_mode=ParseMode.HTML,
-        )
