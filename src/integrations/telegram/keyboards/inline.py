@@ -27,6 +27,12 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton(
+                    text="📂 Начать диалог",
+                    callback_data=MenuCallback(action="start_dialog").pack(),
+                ),
+            ],
+            [
+                InlineKeyboardButton(
                     text="📊 Лимиты", callback_data=MenuCallback(action="limits").pack()
                 ),
                 InlineKeyboardButton(
