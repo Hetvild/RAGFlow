@@ -34,8 +34,11 @@ async def start_dialog(
     await state.update_data(started_at=asyncio.get_event_loop().time())
 
     await callback.message.answer(
-        text="💬 <b>Диалог начат.</b>\nЗадайте ваш вопрос.\n\nНажмите кнопку ниже, \
-        чтобы завершить сессию.",
+        text=(
+            "💬 <b>Диалог начат.</b>\n"
+            "Задайте ваш вопрос.\n\n"
+            "Нажмите кнопку ниже, чтобы завершить сессию."
+        ),
         reply_markup=get_dialog_keyboard(),
         parse_mode=ParseMode.HTML,
     )
