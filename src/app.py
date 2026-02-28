@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from datetime import timedelta
 
 from aiogram import Dispatcher, types
 from aiogram.fsm.storage.redis import RedisStorage
@@ -10,8 +11,11 @@ from core.qdrant import qdrant_manager
 from core.redis import redis_manager
 from db.db_helper import db_helper
 from integrations.telegram.bot import bot
+from integrations.telegram.handlers.bases_manage import bases_router
 from integrations.telegram.handlers.commands import command_router
+from integrations.telegram.handlers.dialog import dialog_router
 from integrations.telegram.handlers.messages import messages_router
+from integrations.telegram.handlers.profile import profile_router
 from integrations.telegram.middlewares.db import DatabaseMiddleware
 
 
@@ -27,16 +31,20 @@ async def lifespan(_: FastAPI):
 
     storage = RedisStorage(
         redis=redis_manager.get_client(),
-        state_ttl=settings.REDIS_PREFIX + ":state",
-        data_ttl=settings.REDIS_PREFIX + ":data",
+        state_ttl=timedelta(minutes=30),  # Настоящее время жизни состояний
+        data_ttl=timedelta(minutes=30),  # Настоящее время жизни данных
+        # ⬇ Префиксы задаются отдельно, если нужно (опционально)
+        key_builder=None,  # Можно использовать DefaultKeyBuilder для кастомных префиксов
     )
-
     # Создаем новый диспетчер с RedisStorage
     dp = Dispatcher(storage=storage)
 
     dp.update.middleware(DatabaseMiddleware())
 
-    # Подключаем роутеры
+    # Подключаем роутеры Aiogram
+    dp.include_router(dialog_router)
+    dp.include_router(bases_router)
+    dp.include_router(profile_router)
     dp.include_router(command_router)
     dp.include_router(messages_router)
 
